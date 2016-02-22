@@ -1,5 +1,5 @@
-require_relative 'db_connection'
-require_relative 'sql_object'
+require_relative './../db/db_connection'
+require_relative 'sql_object/sql_object'
 
 class SQLRelation
   def self.build_association(base, included, method_name)
@@ -146,7 +146,7 @@ class SQLRelation
   def method_missing(method, *args, &block)
     self.to_a.send(method, *args, &block)
   end
-  
+
   def order(params)
     if params.is_a?(Hash)
       order_params_hash.merge!(params)

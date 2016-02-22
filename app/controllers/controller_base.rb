@@ -1,8 +1,9 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'erb'
-require_relative './session'
+require_relative '../../config/session'
 require 'active_support/inflector'
+require 'byebug'
 
 class ControllerBase
   attr_reader :req, :res, :params
@@ -42,7 +43,7 @@ class ControllerBase
   # pass the rendered html to render_content
   def render(template_name)
     body_string = ""
-    File.open("../views/#{controller_name}/#{template_name}.html.erb", "r") do |f|
+    File.open("./app/views/#{controller_name}/#{template_name}.html.erb", "r") do |f|
       f.each_line do |line|
         body_string += line
       end

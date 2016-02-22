@@ -1,12 +1,4 @@
-require_relative 'lib/sql_object'
-
-DEMO_DB_FILE = 'cats.db'
-DEMO_SQL_FILE = 'cats.sql'
-
-`rm '#{DEMO_DB_FILE}'`
-`cat '#{DEMO_SQL_FILE}' | sqlite3 '#{DEMO_DB_FILE}'`
-
-DBConnection.open(DEMO_DB_FILE)
+require_relative '../../bin/sql_object/sql_object'
 
 class House < SQLObject
   has_many :humans

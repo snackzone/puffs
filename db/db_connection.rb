@@ -1,7 +1,10 @@
 require 'sqlite3'
+require 'byebug'
 
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
-ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
+# why on Earth was '..' there??
+# ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
+ROOT_FOLDER = File.join(File.dirname(__FILE__))
 CATS_SQL_FILE = File.join(ROOT_FOLDER, 'cats.sql')
 CATS_DB_FILE = File.join(ROOT_FOLDER, 'cats.db')
 
