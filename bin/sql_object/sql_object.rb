@@ -124,18 +124,41 @@ class SQLObject
   end
 
   def insert
-    column_names = self.class.columns.join(", ")
-    bind_params = self.class.columns.map.with_index{|c, i| "$#{i + 1}"}.join(", ")
-    DBConnection.execute(<<-SQL, *attribute_values)
+    columns = self.class.columns.reject { |col| col == :id }
+    column_values = columns.map {|attr_name| send(attr_name)}
+    column_names = columns.join(", ")
+    bind_params = (1..columns.length).map {|n| "$#{n}"}.join(", ")
+    result = DBConnection.execute(<<-SQL, column_values)
       INSERT INTO
         #{self.class.table_name} (#{column_names})
       VALUES
-        (#{bind_params});
-
+        (#{bind_params})
+        RETURNING id;
     SQL
-    self.id = DBConnection.last_insert_row_id
+    # self.id = DBConnection.last_insert_row_id
+    self.id = result.first['id']
     self
   end
+
+  # def insert
+  #   cols = columns.reject { |col| col == :id }
+  #   col_values = cols.map { |attr_name| send(attr_name) }
+  #   col_names = cols.join(", ")
+  #   question_marks = (["?"] * cols.size).join(", ")
+  #
+  #   result = DBConnection.execute(<<-SQL, col_values)
+  #     INSERT INTO
+  #       #{table_name} (#{col_names})
+  #     VALUES
+  #       (#{question_marks})
+  #     RETURNING id
+  #   SQL
+  #
+  #   self.id = result.first['id']
+  #   # DBConnection.last_insert_row_id
+  #
+  #   true
+  # end
 
   def save
     self.class.find(id) ? update : insert
