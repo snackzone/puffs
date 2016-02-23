@@ -5,4 +5,6 @@ require_relative '../app/models/models'
 #
 # `rm '#{DEMO_DB_FILE}'`
 # `cat '#{DEMO_SQL_FILE}' | sqlite3 '#{DEMO_DB_FILE}'`
-DBConnection.reset
+
+#my require structures are so convoluted that the db is already set when this is called.
+# DBConnection.reset

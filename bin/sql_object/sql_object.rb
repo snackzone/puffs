@@ -21,13 +21,13 @@ class SQLObject
   end
 
   def self.columns
-    @table ||= DBConnection.execute2(<<-SQL)
+    @table ||= DBConnection.execute(<<-SQL)
       SELECT
         *
       FROM
-        #{self.table_name};
+        #{self.table_name} LIMIT 1;
       SQL
-    @table.first.map(&:to_sym)
+    @table.first.keys.map(&:to_sym)
   end
 
   def self.count
