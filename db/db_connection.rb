@@ -10,6 +10,7 @@ CATS_DB_FILE = File.join(ROOT_FOLDER, 'cats.db')
 
 class DBConnection
   def self.open(db_file_name)
+    debugger
     @db = SQLite3::Database.new(db_file_name)
     @db.results_as_hash = true
     @db.type_translation = true

@@ -1,11 +1,12 @@
 require 'rack'
 require './db/open_connection.rb'
 require './config/router.rb'
+require 'byebug'
 
 router = Router.new
 router.draw do
   get Regexp.new("^/cats/new$"), CatsController, :new
-  get Regexp.new("^/cats/create$"), CatsController, :create
+  post Regexp.new("^/cats/create$"), CatsController, :create
   get Regexp.new("^/cats$"), CatsController, :index
   get Regexp.new("^/cats/(?<cat_id>\\d+)/statuses$"), StatusesController, :index
   get Regexp.new("^/cats/(?<cat_id>\\d+)$"), CatsController, :show

@@ -1,5 +1,6 @@
 require_relative 'controller_base'
 require_relative '../models/models'
+require 'byebug'
 
 class StatusesController < ControllerBase
   def index
@@ -21,12 +22,16 @@ class CatsController < ControllerBase
     @cat = Cat.find(Integer(params['cat_id']))
     render :show
   end
-end
 
-def new
-  render :new
-end
+  def new
+    render :new
+  end
 
-def create
-  debugger
+  def create
+    debugger
+    @cat = Cat.new
+    @cat.name = params['cat']['name']
+    @cat.save
+    render :show
+  end
 end

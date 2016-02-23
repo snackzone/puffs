@@ -1,4 +1,4 @@
-require './app/models/models.rb'
+require_relative '../app/models/models'
 
 # DEMO_DB_FILE = 'cats.db'
 # DEMO_SQL_FILE = 'cats.sql'
