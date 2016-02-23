@@ -28,7 +28,6 @@ class CatsController < ControllerBase
   end
 
   def create
-    debugger
     @cat = Cat.new
     @cat.name = params['cat']['name']
     @cat.save

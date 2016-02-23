@@ -88,7 +88,7 @@ class SQLRelation
   def load
     if !loaded
       puts "LOADING #{table_name}"
-        results = DBConnection.execute(<<-SQL, *sql_params[:values])
+        results = DBConnection.execute(<<-SQL, sql_params[:values])
         SELECT
           #{sql_count ? "COUNT(*)" : self.table_name.to_s + ".*"}
         FROM
@@ -175,9 +175,11 @@ class SQLRelation
   def sql_params
     params, values = [], []
 
+    i = 1
     where_params_hash.map do |attribute, value|
-      params << "#{attribute} = ?"
+      params << "#{attribute} = $#{i}"
       values << value
+      i += 1
     end
 
     { params: params.join(" AND "),

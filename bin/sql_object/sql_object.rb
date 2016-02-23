@@ -112,12 +112,12 @@ class SQLObject
 
   def destroy!
     if self.class.find(id)
-      DBConnection.execute(<<-SQL, id)
+      DBConnection.execute(<<-SQL)
         DELETE
         FROM
           #{self.class.table_name}
         WHERE
-          id = ?
+          id = #{id}
       SQL
       return self
     end
@@ -125,12 +125,12 @@ class SQLObject
 
   def insert
     column_names = self.class.columns.join(", ")
-    question_marks = self.class.columns.map{|c| "?"}.join(", ")
+    bind_params = self.class.columns.map.with_index{|c, i| "$#{i + 1}"}.join(", ")
     DBConnection.execute(<<-SQL, *attribute_values)
       INSERT INTO
         #{self.class.table_name} (#{column_names})
       VALUES
-        (#{question_marks});
+        (#{bind_params});
 
     SQL
     self.id = DBConnection.last_insert_row_id
@@ -143,16 +143,17 @@ class SQLObject
 
   def update
     set_line = self.class.columns.map do |column|
+      #bobby tables says hi!
       "#{column} = \'#{self.send(column)}\'"
     end.join(", ")
 
-    DBConnection.execute(<<-SQL, id)
+    DBConnection.execute(<<-SQL)
       UPDATE
         #{self.class.table_name}
       SET
         #{set_line}
       WHERE
-        id = ?
+        id = #{id}
     SQL
     self
   end
