@@ -38,13 +38,23 @@ class DBConnection
   end
 
   def self.execute(*args)
-    debugger
     print_query(*args)
     instance.exec(*args)
   end
 
-  def self.last_insert_row_id
-    instance.last_insert_row_id
+  def self.columns(table_name)
+    cols = instance.exec(<<-SQL)
+      SELECT
+        attname
+      FROM
+        pg_attribute
+      WHERE
+        attrelid = '#{table_name}'::regclass AND
+        attnum > 0 AND
+        NOT attisdropped
+    SQL
+
+    cols.map { |col| col['attname'].to_sym }
   end
 
   private
