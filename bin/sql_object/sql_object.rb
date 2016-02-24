@@ -22,13 +22,6 @@ class SQLObject
 
   def self.columns
     DBConnection.columns(table_name)
-    # @table ||= DBConnection.execute(<<-SQL)
-    #   SELECT
-    #     *
-    #   FROM
-    #     #{self.table_name} LIMIT 1;
-    #   SQL
-    # @table.first.keys.map(&:to_sym)
   end
 
   def self.count
@@ -136,30 +129,9 @@ class SQLObject
         (#{bind_params})
         RETURNING id;
     SQL
-    # self.id = DBConnection.last_insert_row_id
     self.id = result.first['id']
     self
   end
-
-  # def insert
-  #   cols = columns.reject { |col| col == :id }
-  #   col_values = cols.map { |attr_name| send(attr_name) }
-  #   col_names = cols.join(", ")
-  #   question_marks = (["?"] * cols.size).join(", ")
-  #
-  #   result = DBConnection.execute(<<-SQL, col_values)
-  #     INSERT INTO
-  #       #{table_name} (#{col_names})
-  #     VALUES
-  #       (#{question_marks})
-  #     RETURNING id
-  #   SQL
-  #
-  #   self.id = result.first['id']
-  #   # DBConnection.last_insert_row_id
-  #
-  #   true
-  # end
 
   def save
     self.class.find(id) ? update : insert

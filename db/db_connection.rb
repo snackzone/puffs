@@ -2,21 +2,11 @@ require 'pg'
 require 'byebug'
 
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
-# why on Earth was '..' there??
-# ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
 ROOT_FOLDER = File.join(File.dirname(__FILE__))
-CATS_SQL_FILE = File.join(ROOT_FOLDER, 'pgcats.sql')
-CATS_DB_FILE = File.join(ROOT_FOLDER, 'cats.db')
+CATS_SQL_FILE = File.join(ROOT_FOLDER, '/migrations/pgcats.sql')
 
 class DBConnection
-  # def self.open(db_file_name)
-  #   @db = SQLite3::Database.new(db_file_name)
-  #   @db.results_as_hash = true
-  #   @db.type_translation = true
-  #
-  #   @db
-  # end
-  def self.open(db_file_name)
+  def self.open
     @db = PG::Connection.new( :dbname => "cats", :port => 5432 )
   end
 
@@ -28,11 +18,11 @@ class DBConnection
     ]
 
     commands.each { |command| `#{command}` }
-    DBConnection.open(CATS_DB_FILE)
+    DBConnection.open
   end
 
   def self.instance
-    reset if @db.nil?
+    self.open if @db.nil?
 
     @db
   end
@@ -43,7 +33,7 @@ class DBConnection
   end
 
   def self.columns(table_name)
-    cols = instance.exec(<<-SQL)
+    columns = instance.exec(<<-SQL)
       SELECT
         attname
       FROM
@@ -54,7 +44,7 @@ class DBConnection
         NOT attisdropped
     SQL
 
-    cols.map { |col| col['attname'].to_sym }
+    columns.map { |col| col['attname'].to_sym }
   end
 
   private

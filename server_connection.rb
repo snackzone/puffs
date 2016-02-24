@@ -1,7 +1,5 @@
 require 'rack'
-require './db/open_connection.rb'
-require './config/router.rb'
-require 'byebug'
+require_relative 'config/router'
 
 router = Router.new
 router.draw do
