@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS humans (
+  id SERIAL PRIMARY KEY,
+  fname VARCHAR(255) NOT NULL,
+  lname VARCHAR(255) NOT NULL,
+  house_id INTEGER
+);

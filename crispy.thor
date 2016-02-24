@@ -10,6 +10,7 @@ class Generate < Thor
       f.write("end\n")
       f.write("#{m_name}.finalize!")
     end
+    migration("Create#{m_name}")
     puts "#{m_name} model created"
   end
 
@@ -30,6 +31,17 @@ class Generate < Thor
     #creates empty views directory
     Dir.mkdir "./app/views/#{c_name.downcase}"
     puts "#{c_name} controller created"
+  end
+
+  desc "migration <name>", "generates an empty sql file with a filename of the specified <name> appended to a timestamp"
+  def migration(name)
+    #create a timestamp
+    ts = Time.now.to_s.split(" ").take(2).join("").split("").map{|el| el.to_i}.join
+    require 'active_support/inflector'
+    filename = "#{ts}_#{name.underscore.downcase}"
+
+    #create the migration file
+    File.open("./db/migrate/#{filename}.sql", "w")
   end
 end
 

@@ -1,27 +1,24 @@
 require 'pg'
 require 'byebug'
 
-debugger
+APP_NAME = "MyFirstCrispyApp"
 
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
-# ROOT_FOLDER = File.join(File.dirname(__FILE__))
-# MIGRATIONS = File.join(ROOT_FOLDER, '../db/migrate/pgcats.sql')
-
 project_root = File.dirname(File.absolute_path(__FILE__))
 MIGRATIONS = Dir.glob(project_root + '/../db/migrate/*.sql').to_a
 
 class DBConnection
   def self.open
-    @db = PG::Connection.new( :dbname => "cats", :port => 5432 )
+    @db = PG::Connection.new( :dbname => APP_NAME, :port => 5432 )
   end
 
   def self.reset
     commands = [
-      "dropdb cats",
-      "createdb cats",
+      "dropdb #{APP_NAME}",
+      "createdb #{APP_NAME}",
     ]
 
-    commands.concat(MIGRATIONS.map {|f| "psql -d cats -a -f #{f}"})
+    commands.concat(MIGRATIONS.map {|f| "psql -d #{APP_NAME} -a -f #{f}"})
 
     commands.each { |command| `#{command}` }
     DBConnection.open
