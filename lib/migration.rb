@@ -1,3 +1,0 @@
-class SQLMigration
-  
-end

@@ -45,14 +45,14 @@ class Generate < Thor
   end
 end
 
-class Crispy < Thor
+class Puffs < Thor
   desc "generate", "subcommand used for generating models and controllers"
   subcommand 'generate', Generate
 
   desc "g", "alias of generate subcommand"
   subcommand 'g', Generate
 
-  desc 'server', 'starts the crispy server'
+  desc 'server', 'starts the puffs server'
   def server
     require_relative 'lib/server_connection'
     ServerConnection.start

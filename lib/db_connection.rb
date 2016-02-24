@@ -1,7 +1,7 @@
 require 'pg'
 require 'byebug'
 
-APP_NAME = "MyFirstCrispyApp"
+APP_NAME = "MyFirstPuffsApp"
 
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
 project_root = File.dirname(File.absolute_path(__FILE__))
@@ -13,8 +13,6 @@ class DBConnection
   end
 
   def self.reset
-    debugger
-
     commands = [
       "dropdb #{APP_NAME}",
       "createdb #{APP_NAME}",
@@ -51,7 +49,6 @@ class DBConnection
   end
 
   def self.add_to_version(file)
-    debugger
     name = parse_migration_file(file)
     execute(<<-SQL, [name])
       INSERT INTO
