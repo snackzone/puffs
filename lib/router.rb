@@ -1,5 +1,10 @@
-require_relative '../app/controllers/controllers'
+# require_relative '../app/controllers/controllers'
 require 'byebug'
+debugger
+
+
+project_root = File.dirname(File.absolute_path(__FILE__))
+Dir.glob(project_root + '/../app/controllers/*.rb') { |file| require file }
 
 class Route
   attr_reader :pattern, :http_method, :controller_class, :action_name

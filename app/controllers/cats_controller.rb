@@ -1,15 +1,6 @@
 require_relative '../../lib/controller_base'
-require_relative '../models/models'
-
-class StatusesController < ControllerBase
-  def index
-    statuses = $statuses.select do |s|
-      s[:cat_id] == Integer(params['cat_id'])
-    end
-
-    render_content(statuses.to_json, "application/json")
-  end
-end
+project_root = File.dirname(File.absolute_path(__FILE__))
+Dir.glob(project_root + '/../models/*.rb') { |file| require file }
 
 class CatsController < ControllerBase
   def index
