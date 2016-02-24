@@ -38,7 +38,7 @@ class Generate < Thor
     #create a timestamp
     ts = Time.now.to_s.split(" ").take(2).join("").split("").map{|el| el.to_i}.join
     require 'active_support/inflector'
-    filename = "#{ts}_#{name.underscore.downcase}"
+    filename = "#{ts}__#{name.underscore.downcase}"
 
     #create the migration file
     File.open("./db/migrate/#{filename}.sql", "w")
@@ -54,7 +54,8 @@ class Crispy < Thor
 
   desc 'server', 'starts the crispy server'
   def server
-    require_relative 'server_connection'
+    require_relative 'lib/server_connection'
+    ServerConnection.start
   end
 end
 
@@ -64,6 +65,12 @@ class Db < Thor
     require_relative 'lib/db_connection'
     DBConnection.reset
     puts 'db created!'
+  end
+
+  desc "migrate", "runs pending migrations"
+  def migrate
+    require_relative 'lib/db_connection'
+    DBConnection.migrate
   end
 
   desc "seed", "seeds the DB"
@@ -76,6 +83,7 @@ class Db < Thor
   desc "reset", "resets the DB and seeds it"
   def reset
     create
+    migrate
     seed
     puts 'db reset!'
   end
