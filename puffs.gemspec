@@ -1,6 +1,4 @@
 # coding: utf-8
-require 'byebug'
-debugger
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
@@ -14,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{A simple ORM and MVC inspired by Rails.}
   spec.description   = %q{Coming Soon...}
-  spec.homepage      = "github.com/snackzone"
+  spec.homepage      = "http://github.com/snackzone"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
