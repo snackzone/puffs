@@ -1,6 +1,4 @@
 # coding: utf-8
-require 'byebug'
-debugger
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
