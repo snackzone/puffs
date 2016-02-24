@@ -26,7 +26,7 @@ end
 class Db < Thor
   desc "create", "creates the DB"
   def create
-    require_relative 'db/db_connection'
+    require_relative 'lib/db_connection'
     DBConnection.reset
     puts 'db created!'
   end

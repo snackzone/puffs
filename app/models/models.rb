@@ -1,4 +1,4 @@
-require_relative '../../bin/sql_object/sql_object'
+require_relative '../../lib/sql_object/sql_object'
 
 class House < SQLObject
   has_many :humans

@@ -3,7 +3,7 @@ require 'byebug'
 
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
 ROOT_FOLDER = File.join(File.dirname(__FILE__))
-CATS_SQL_FILE = File.join(ROOT_FOLDER, '/migrations/pgcats.sql')
+CATS_SQL_FILE = File.join(ROOT_FOLDER, '../db/migrations/pgcats.sql')
 
 class DBConnection
   def self.open

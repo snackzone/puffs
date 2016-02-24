@@ -1,4 +1,4 @@
-require_relative './../db/db_connection'
+require_relative './../lib/db_connection'
 require_relative 'sql_object/sql_object'
 
 class SQLRelation

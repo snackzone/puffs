@@ -1,6 +1,5 @@
-require_relative 'controller_base'
+require_relative '../../lib/controller_base'
 require_relative '../models/models'
-require 'byebug'
 
 class StatusesController < ControllerBase
   def index
