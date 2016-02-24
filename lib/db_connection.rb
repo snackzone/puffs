@@ -1,9 +1,14 @@
 require 'pg'
 require 'byebug'
 
+debugger
+
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
-ROOT_FOLDER = File.join(File.dirname(__FILE__))
-CATS_SQL_FILE = File.join(ROOT_FOLDER, '../db/migrations/pgcats.sql')
+# ROOT_FOLDER = File.join(File.dirname(__FILE__))
+# MIGRATIONS = File.join(ROOT_FOLDER, '../db/migrate/pgcats.sql')
+
+project_root = File.dirname(File.absolute_path(__FILE__))
+MIGRATIONS = Dir.glob(project_root + '/../db/migrate/*.sql').to_a
 
 class DBConnection
   def self.open
@@ -14,8 +19,9 @@ class DBConnection
     commands = [
       "dropdb cats",
       "createdb cats",
-      "psql -d cats -a -f #{CATS_SQL_FILE}"
     ]
+
+    commands.concat(MIGRATIONS.map {|f| "psql -d cats -a -f #{f}"})
 
     commands.each { |command| `#{command}` }
     DBConnection.open

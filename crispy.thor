@@ -56,7 +56,7 @@ class Db < Thor
 
   desc "seed", "seeds the DB"
   def seed
-    require_relative 'db/seed'
+    require_relative 'db/seeds'
     Seed.populate
     puts 'db seeded!'
   end
