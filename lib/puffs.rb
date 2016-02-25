@@ -9,3 +9,7 @@ Dir.glob('./app/models/*.rb') {|file| require file}
 Dir.glob('./app/controllers/*.rb') {|file| require file}
 
 require './db/seeds'
+
+require_relative 'db_connection'
+require_relative 'server_connection'
+require_relative 'session'

@@ -2,7 +2,6 @@
 
 require 'rubygems'
 require 'thor'
-require_relative '../lib/puffs'
 
 class Generate < Thor
   desc "model <name>", "generate a model with the specified name."
@@ -70,6 +69,7 @@ class Db < Thor
 
   desc "seed", "seeds the DB"
   def seed
+    require_relative '../lib/puffs'
     Seed.populate
     puts 'db seeded!'
   end
@@ -92,7 +92,7 @@ class Snacks < Thor
 
   desc 'server', 'starts the Puffs server'
   def server
-    require_relative '../lib/server_connection'
+    require_relative '../lib/puffs'
     ServerConnection.start
   end
 
