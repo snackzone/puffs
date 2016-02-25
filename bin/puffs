@@ -85,7 +85,7 @@ class Db < Thor
   end
 end
 
-class Puffs < Thor
+class Snacks < Thor
   desc "generate", "subcommand used for generating models and controllers"
   subcommand 'generate', Generate
 
@@ -123,6 +123,6 @@ class Puffs < Thor
   end
 end
 
-Puffs.start
+Snacks.start
 Db.start
 Generate.start
