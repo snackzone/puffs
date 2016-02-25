@@ -84,8 +84,8 @@ class Db < Thor
 end
 
 class CLI < Thor
-  register(Generate, generate, 'generate <command>', 'Generates a model or controller.')
-  register(Db, db, 'db <command>', 'Accesses commands for the DB.')
+  register(Generate, 'generate', 'generate <command>', 'Generates a model or controller.')
+  register(Db, 'db', 'db <command>', 'Accesses commands for the DB.')
 
   desc "g", "alias of generate subcommand"
   subcommand 'g', Generate
