@@ -1,5 +1,5 @@
 require 'rack'
-require_relative '../config/routes'
+require './config/routes'
 
 class ServerConnection
   def self.start
