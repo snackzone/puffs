@@ -50,20 +50,6 @@ class Generate < Thor
   end
 end
 
-class Puffs < Thor
-  desc "generate", "subcommand used for generating models and controllers"
-  subcommand 'generate', Generate
-
-  desc "g", "alias of generate subcommand"
-  subcommand 'g', Generate
-
-  desc 'server', 'starts the puffs server'
-  def server
-    require_relative '../lib/server_connection'
-    ServerConnection.start
-  end
-end
-
 class Db < Thor
   desc "create", "creates the DB"
   def create
@@ -92,6 +78,20 @@ class Db < Thor
     migrate
     seed
     puts 'db reset!'
+  end
+end
+
+class Puffs < Thor
+  desc "generate", "subcommand used for generating models and controllers"
+  subcommand 'generate', Generate
+
+  desc "g", "alias of generate subcommand"
+  subcommand 'g', Generate
+
+  desc 'server', 'starts the puffs server'
+  def server
+    require_relative '../lib/server_connection'
+    ServerConnection.start
   end
 end
 

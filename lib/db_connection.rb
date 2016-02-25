@@ -1,6 +1,6 @@
 require 'pg'
 
-APP_NAME = "MyFirstPuffsApp"
+APP_NAME = "Puffs"
 
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
 project_root = File.dirname(File.absolute_path(__FILE__))
