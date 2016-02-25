@@ -26,12 +26,12 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.executables   = "puffs"
 
-  spec.add_runtime_dependency "thor"
-  spec.add_runtime_dependency "pg"
-  spec.add_runtime_dependency "activesupport"
-  spec.add_runtime_dependency "pry"
-  spec.add_runtime_dependency "rack"
-  spec.add_runtime_dependency "json"
+  spec.add_runtime_dependency "thor", "~> 0"
+  spec.add_runtime_dependency "pg", "~> 0"
+  spec.add_runtime_dependency "activesupport", "~> 0"
+  spec.add_runtime_dependency "pry", "~> 0"
+  spec.add_runtime_dependency "rack", "~> 0"
+  spec.add_runtime_dependency "json", "~> 0"
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
