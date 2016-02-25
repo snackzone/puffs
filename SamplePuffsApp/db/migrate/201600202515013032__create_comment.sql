@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS comments (
+	id SERIAL PRIMARY KEY,
+	body VARCHAR(255) NOT NULL,
+	commenter_id INTEGER,
+	post_id INTEGER);
