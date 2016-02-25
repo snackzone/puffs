@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    puffs (0.1.91)
+    puffs (0.1.92)
       activesupport (~> 4.0.13)
       fileutils (~> 0.7)
       pg (~> 0.18)

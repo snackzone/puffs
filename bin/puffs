@@ -100,3 +100,7 @@ class Puffs < Thor
     FileUtils.cp_r "../template/.", "#{name}"
   end
 end
+
+Puffs.start
+Db.start
+Generate.start
