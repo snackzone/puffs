@@ -31,7 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "activesupport", "~> 4.2.5"
   spec.add_runtime_dependency "pry", "~> 0"
   spec.add_runtime_dependency "rack", "~> 0"
-  spec.add_runtime_dependency "json", "~> 0"
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
