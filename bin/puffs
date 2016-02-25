@@ -88,9 +88,15 @@ class Puffs < Thor
   desc "g", "alias of generate subcommand"
   subcommand 'g', Generate
 
-  desc 'server', 'starts the puffs server'
+  desc 'server', 'starts the Puffs server'
   def server
     require_relative '../lib/server_connection'
     ServerConnection.start
+  end
+
+  desc 'new', 'creates a new Puffs app'
+  def new(name)
+    require 'fileutils'
+    FileUtils.cp_r "../template/.", "#{name}"
   end
 end
