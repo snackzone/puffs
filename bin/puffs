@@ -94,7 +94,3 @@ class Puffs < Thor
     ServerConnection.start
   end
 end
-
-Db.start
-Generate.start
-Puffs.start
