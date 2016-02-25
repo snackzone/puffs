@@ -64,5 +64,37 @@ class Puffs < Thor
   end
 end
 
+class Db < Thor
+  desc "create", "creates the DB"
+  def create
+    require_relative '../lib/db_connection'
+    DBConnection.reset
+    puts 'db created!'
+  end
+
+  desc "migrate", "runs pending migrations"
+  def migrate
+    require_relative '../lib/db_connection'
+    DBConnection.migrate
+    puts "migrated!"
+  end
+
+  desc "seed", "seeds the DB"
+  def seed
+    require_relative '../db/seeds'
+    Seed.populate
+    puts 'db seeded!'
+  end
+
+  desc "reset", "resets the DB and seeds it"
+  def reset
+    create
+    migrate
+    seed
+    puts 'db reset!'
+  end
+end
+
+Db.start
 Generate.start
 Puffs.start
