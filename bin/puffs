@@ -96,9 +96,6 @@ class Puffs < Thor
 
   desc 'new', 'creates a new Puffs app'
   def new(name)
-    require 'byebug'
-    debugger
-
     Dir.mkdir "./#{name}"
     Dir.mkdir "./#{name}/app"
     Dir.mkdir "./#{name}/app/models"
