@@ -1,8 +1,8 @@
 # require 'active_support'
-# require 'active_support/core_ext'
+require 'active_support/core_ext'
 require 'erb'
 require_relative 'session'
-# require 'active_support/inflector'
+require 'active_support/inflector'
 
 class ControllerBase
   attr_reader :req, :res, :params

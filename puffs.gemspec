@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "thor", "~> 0"
   spec.add_runtime_dependency "pg", "~> 0"
-  spec.add_runtime_dependency "activesupport", "~> 0"
+  spec.add_runtime_dependency "active_support", "~> 4.2.5"
   spec.add_runtime_dependency "pry", "~> 0"
   spec.add_runtime_dependency "rack", "~> 0"
   spec.add_runtime_dependency "json", "~> 0"
