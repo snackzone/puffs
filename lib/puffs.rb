@@ -11,5 +11,6 @@ Dir.glob('./app/controllers/*.rb') {|file| require file}
 require './db/seeds'
 
 require_relative 'db_connection'
+require_relative 'router'
 require_relative 'server_connection'
 require_relative 'session'
