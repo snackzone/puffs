@@ -97,7 +97,7 @@ class Puffs < Thor
   desc 'new', 'creates a new Puffs app'
   def new(name)
     require 'fileutils'
-    FileUtils.cp_r "../template/.", "#{name}"
+    FileUtils.copy_entry "./template/.", "#{name}"
   end
 end
 

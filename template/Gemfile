@@ -1,3 +1,3 @@
 source "https://rubygems.org"
 
-gem "puffs", "~>0.1.92"
+gem "puffs", "~>0.1.93"
