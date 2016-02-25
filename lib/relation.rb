@@ -1,6 +1,6 @@
 require_relative './../lib/db_connection'
 require_relative 'sql_object/sql_object'
-require 'puffs'
+require_relative 'puffs'
 
 class Puffs::SQLRelation
   def self.build_association(base, included, method_name)
