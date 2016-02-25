@@ -3,8 +3,9 @@ require 'active_support/core_ext'
 require 'erb'
 require_relative 'session'
 require 'active_support/inflector'
+require 'puffs'
 
-class ControllerBase
+class Puffs::ControllerBase
   attr_reader :req, :res, :params
 
   # Setup the controller

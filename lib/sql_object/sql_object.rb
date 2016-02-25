@@ -2,8 +2,9 @@ require_relative '../../lib/db_connection'
 require_relative 'associatable'
 require_relative '../relation'
 require 'active_support/inflector'
+require 'puffs'
 
-class SQLObject
+class Puffs::SQLObject
   extend Associatable
 
   RELATION_METHODS = [

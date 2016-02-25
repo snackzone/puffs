@@ -1,7 +1,7 @@
 require_relative './../lib/db_connection'
 require_relative 'sql_object/sql_object'
 
-class SQLRelation
+class Puffs::SQLRelation
   def self.build_association(base, included, method_name)
     base.included_relations << included
 

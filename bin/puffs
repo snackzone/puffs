@@ -46,7 +46,11 @@ class Generate < Thor
     filename = "#{ts}__#{name.underscore.downcase}"
 
     #create the migration file
-    File.open("./db/migrate/#{filename}.sql", "w")
+    File.open("./db/migrate/#{filename}.sql", "w") do |f|
+      f.write ("CREATE TABLE IF NOT EXISTS #{name} (\n")
+      f.write ("\tid SERIAL PRIMARY KEY,\n")
+      f.write (");")
+    end
   end
 end
 
