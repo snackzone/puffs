@@ -3,7 +3,7 @@ require 'active_support/core_ext'
 require 'erb'
 require_relative 'session'
 require 'active_support/inflector'
-require_relative 'puffs'
+# require_relative 'puffs'
 
 class Puffs::ControllerBase
   attr_reader :req, :res, :params
