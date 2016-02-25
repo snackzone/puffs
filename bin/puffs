@@ -69,7 +69,6 @@ class Db < Thor
 
   desc "seed", "seeds the DB"
   def seed
-    require 'puffs'
     require './db/seeds'
     Seed.populate
     puts 'db seeded!'
