@@ -1,5 +1,5 @@
-require 'rack'
-require_relative 'router'
+# require 'rack'
+# require_relative 'router'
 require_relative '../config/routes'
 
 class ServerConnection
