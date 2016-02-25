@@ -2,11 +2,10 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'version'
 
 Gem::Specification.new do |spec|
   spec.name          = "puffs"
-  spec.version       = Puffs::VERSION
+  spec.version       = "0.2.0"
   spec.authors       = ["Zachary Moroni"]
   spec.email         = ["zachary.moroni@gmail.com"]
 

@@ -13,7 +13,7 @@ class Puffs::SQLObject
 
   RELATION_METHODS.each do |method|
     define_singleton_method(method) do |arg|
-      SQLRelation.new(klass: self).send(method, arg)
+      Puffs::SQLRelation.new(klass: self).send(method, arg)
     end
   end
 
@@ -69,7 +69,7 @@ class Puffs::SQLObject
   end
 
   def self.parse_all(results)
-    relation = SQLRelation.new(klass: self, loaded: true)
+    relation = Puffs::SQLRelation.new(klass: self, loaded: true)
     results.each do |result|
       relation << self.new(result)
     end

@@ -85,7 +85,7 @@ module Associatable
       through_class = through_options.model_class
       key_val = self.send(through_options.primary_key)
 
-      #2 queries, we could reduce to 1 by writing SQLRelation::join.
+      #2 queries, we could reduce to 1 by writing Puffs::SQLRelation.join.
       through_class.where(through_fk => key_val)
                    .includes(source_name)
                    .load

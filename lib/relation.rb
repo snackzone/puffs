@@ -136,7 +136,7 @@ class Puffs::SQLRelation
             (#{in_ids});
         SQL
         included = assoc.model_class.parse_all(results)
-        SQLRelation.build_association(relation, included, param)
+        Puffs::SQLRelation.build_association(relation, included, param)
       end
     end
 
