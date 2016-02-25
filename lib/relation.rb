@@ -27,7 +27,7 @@ class Puffs::SQLRelation
       #After we find our values iteratively, we overwrite the method again
       #to the result values to reduce future lookup time to O(1).
       new_match = proc { associated }
-      SQLObject.define_singleton_method_by_proc(
+      Puffs::SQLObject.define_singleton_method_by_proc(
         self, method_name, new_match)
 
       associated
@@ -36,7 +36,7 @@ class Puffs::SQLRelation
     #we overwrite the association method for each SQLObject in the
     #collection so that it points to our cached relation and doesn't fire a query.
     base.collection.each do |b_sql_obj|
-      SQLObject.define_singleton_method_by_proc(
+      Puffs::SQLObject.define_singleton_method_by_proc(
         b_sql_obj, method_name, match)
     end
   end
