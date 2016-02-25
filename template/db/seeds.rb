@@ -1,5 +1,3 @@
-Dir.glob('./app/models/*.rb') {|file| require file}
-
 class Seed
   def self.populate
     #Create seeds in this method. Here's an example:
