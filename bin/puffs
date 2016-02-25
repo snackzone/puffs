@@ -1,3 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'thor'
+
 class Generate < Thor
   desc "model <name>", "generate a model with the specified name."
   def model(name)
@@ -54,44 +58,10 @@ class Puffs < Thor
 
   desc 'server', 'starts the puffs server'
   def server
-    require_relative 'lib/server_connection'
+    require_relative '../lib/server_connection'
     ServerConnection.start
   end
 end
 
-class Db < Thor
-  desc "create", "creates the DB"
-  def create
-    require_relative 'lib/db_connection'
-    DBConnection.reset
-    puts 'db created!'
-  end
-
-  desc "migrate", "runs pending migrations"
-  def migrate
-    require_relative 'lib/db_connection'
-    DBConnection.migrate
-  end
-
-  desc "seed", "seeds the DB"
-  def seed
-    require_relative 'db/seeds'
-    Seed.populate
-    puts 'db seeded!'
-  end
-
-  desc "reset", "resets the DB and seeds it"
-  def reset
-    create
-    migrate
-    seed
-    puts 'db reset!'
-  end
-end
-
-class Rake < Thor
-  desc "example", "an example task"
-  def example
-    puts "I'm a thor task!"
-  end
-end
+Generate.start
+Puffs.start

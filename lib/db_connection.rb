@@ -1,5 +1,4 @@
 require 'pg'
-require 'byebug'
 
 APP_NAME = "MyFirstPuffsApp"
 
@@ -22,7 +21,7 @@ class DBConnection
   end
 
   def self.migrate
-    create_version_table
+    ensure_version_table
     to_migrate = MIGRATIONS.reject { |file| has_migrated?(file) }
     to_migrate.each { |file| add_to_version(file) }
     to_migrate.map {|file| "psql -d #{APP_NAME} -a -f #{file}"}
@@ -69,13 +68,18 @@ class DBConnection
     instance.exec(*args)
   end
 
-  def self.create_version_table
-    self.execute(<<-SQL)
-      CREATE TABLE IF NOT EXISTS version (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL
-      );
-    SQL
+  def self.ensure_version_table
+    #find a reliable way to query db to see if version table exists.
+    table = nil
+
+    if table.nil?
+      self.execute(<<-SQL)
+        CREATE TABLE IF NOT EXISTS version (
+          id SERIAL PRIMARY KEY,
+          name VARCHAR(255) NOT NULL
+        );
+      SQL
+    end
   end
 
   def self.columns(table_name)
