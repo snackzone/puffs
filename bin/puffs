@@ -104,8 +104,8 @@ class Puffs < Thor
     File.open("./#{name}/app/controllers/application_controller.rb", "w") do |f|
       f.write File.read(File.expand_path('../../template/app/controllers/application_controller.rb', __FILE__))
     end
-    Dir.mkdir "./#{name}/app/config"
-    File.open("./#{name}/app/config/routes.rb", "w") do |f|
+    Dir.mkdir "./#{name}/config"
+    File.open("./#{name}/config/routes.rb", "w") do |f|
       f.write File.read(File.expand_path('../../template/config/routes.rb', __FILE__))
     end
     Dir.mkdir "./#{name}/db"

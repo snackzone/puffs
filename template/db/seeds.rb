@@ -1,5 +1,4 @@
-project_root = File.dirname(File.absolute_path(__FILE__))
-Dir.glob(project_root + '/../app/models/*.rb') {|file| require file}
+Dir.glob('./app/models/*.rb') {|file| require file}
 
 class Seed
   def self.populate
