@@ -1,4 +1,4 @@
-# require 'pg'
+require 'pg'
 
 APP_NAME = "MyFirstPuffsApp"
 
