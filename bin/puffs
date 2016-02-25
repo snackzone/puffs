@@ -121,6 +121,6 @@ class Snacks < Thor
   end
 end
 
-# Snacks.start
-# Db.start
-# Generate.start
+Snacks.start(ARGV)
+Db.start(ARGV)
+Generate.start(ARGV)
