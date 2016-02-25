@@ -1,7 +1,31 @@
 <h1>Post Index</h1>
 
+<h2>Say Something</h2>
+<form action="/posts/create" method="post">
+  <label>Type you post in here.
+    <input type="text" name="post[body]" value="">
+  </label>
+  <button>Submit</button>
+</form>
+
 <ul>
   <% @posts.each do |post| %>
-    <li><%= post.body %></li>
+    <li>
+      <h2><a href="/users/<%=post.author_id%>"><%= post.user.name %></a> Posted:</h2>
+      <h3><%= post.body %></h3>
+      <% if post.author_id == "6" %>
+        <form action="/posts/destroy" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="hidden" name="post_id" value="<%= post.id %>">
+          <button>Delete Post</button>
+        </form>
+      <% end %>
+      <h3>Comments:</h3>
+      <ul>
+        <% post.comments.each do |comment| %>
+        <li><%= comment.body %></li>
+        <% end %>
+      </ul>
+    </li>
   <% end %>
 </ul>

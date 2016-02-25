@@ -3,6 +3,8 @@ ROUTER.draw do
   #Some sample routes:
 
   get Regexp.new("^/posts$"), PostsController, :index
+  post Regexp.new("^/posts/create$"), PostsController, :create
+  post Regexp.new("^/posts/destroy$"), PostsController, :destroy
 
   get Regexp.new("^/users$"), UsersController, :index
 

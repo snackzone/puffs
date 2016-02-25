@@ -1,0 +1,18 @@
+<h1><%= @user.name %></h1>
+
+<ul>
+  <% @user.posts.each do |post| %>
+    <li>
+      <h3><%= post.body %></h3>
+      <h3>Comments:</h3>
+      <ul>
+        <% post.comments.each do |comment| %>
+        <li><%= comment.body %> - <%= comment.user.name %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>
+<br />
+<br />
+<a href="/posts">Back to all the posts!</a>
