@@ -5,13 +5,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "puffs"
-  spec.version       = "0.2.02"
+  spec.version       = "0.2.03"
   spec.authors       = ["Zachary Moroni"]
   spec.email         = ["zachary.moroni@gmail.com"]
 
   spec.summary       = %q{A simple ORM and MVC inspired by Rails.}
-  spec.description   = %q{Coming Soon...}
-  spec.homepage      = "http://github.com/snackzone"
+  spec.description   = %q{Make simple apps the Rails way, but with less overhead.}
+  spec.homepage      = "http://github.com/snackzone/puffs"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
