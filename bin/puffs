@@ -53,6 +53,7 @@ end
 class Db < Thor
   desc "create", "creates the DB"
   def create
+    #Drops Puffs postgres database and recreates it.
     require_relative '../lib/db_connection'
     DBConnection.reset
     puts 'db created!'
@@ -60,6 +61,7 @@ class Db < Thor
 
   desc "migrate", "runs pending migrations"
   def migrate
+    #Creates Version table if necessary, then runs needed migrations in order.
     require_relative '../lib/db_connection'
     DBConnection.migrate
     puts "migrated!"
@@ -118,47 +120,5 @@ class CLI < Thor
     end
   end
 end
-
-# class Snacks < Thor
-#   desc "generate", "subcommand used for generating models and controllers"
-#   subcommand 'generate', Generate
-#
-#   desc "g", "alias of generate subcommand"
-#   subcommand 'g', Generate
-#
-#   desc 'server', 'starts the Puffs server'
-#   def server
-#     require_relative '../lib/puffs'
-#     ServerConnection.start
-#   end
-#
-#   desc 'new', 'creates a new Puffs app'
-#   def new(name)
-#     Dir.mkdir "./#{name}"
-#     Dir.mkdir "./#{name}/app"
-#     Dir.mkdir "./#{name}/app/models"
-#     Dir.mkdir "./#{name}/app/views"
-#     Dir.mkdir "./#{name}/app/controllers"
-#     File.open("./#{name}/app/controllers/application_controller.rb", "w") do |f|
-#       f.write File.read(File.expand_path('../../template/app/controllers/application_controller.rb', __FILE__))
-#     end
-#     Dir.mkdir "./#{name}/config"
-#     File.open("./#{name}/config/routes.rb", "w") do |f|
-#       f.write File.read(File.expand_path('../../template/config/routes.rb', __FILE__))
-#     end
-#     Dir.mkdir "./#{name}/db"
-#     Dir.mkdir "./#{name}/db/migrate"
-#     File.open("./#{name}/db/seeds.rb", "w") do |f|
-#       f.write File.read(File.expand_path('../../template/db/seeds.rb', __FILE__))
-#     end
-#     File.open("./#{name}/Gemfile", "w") do |f|
-#       f.write File.read(File.expand_path('../../template/Gemfile', __FILE__))
-#     end
-#   end
-# end
-#
-# Snacks.start(ARGV)
-# Db.start(ARGV)
-# Generate.start(ARGV)
 
 CLI.start(ARGV)

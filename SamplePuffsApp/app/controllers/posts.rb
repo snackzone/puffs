@@ -1,6 +1,6 @@
 class PostsController < Puffs::ControllerBase
   def index
-    @posts = Post.all.includes(:user).includes(:comments).order(id: :desc)
+    @posts = Post.all.includes(:user).includes(:comments).order(id: :desc).load
   end
 
   def create
