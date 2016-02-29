@@ -18,6 +18,9 @@ How To Do Puffs
 4. puffs db create
 5. You're all set!
 
+Command Line Interface
+----------------------
+
 Enter 'puffs' into the command line with no arguments to see the full
 list of commands, or just read them below:
 
@@ -101,6 +104,18 @@ The Puffs commands prefixed with 'db' interact with the Puffs Postgres database.
   to quickly reset your DB to a seed file while in development.
 * 'puffs db reset' executes all three of the above commands, saving you
   time and energy!
+
+Migrations
+----------
+
+Entering 'puffs generate (or puffs g) migration [migration name]' in the
+command line will create a time-stamped SQL file under db/migrations.
+Write SQL in here to stage changes in the DB (add, drop, or change tables),
+and 'puffs db migrate' to implement them.
+
+_*NB:*_ To reverse a migration that has been run, you must generate a new
+migration that undoes the changes. Deleting the original migration will
+do nothing.
 
 Puffs::ControllerBase
 ---------------------
