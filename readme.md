@@ -57,11 +57,11 @@ without all the extra overhead.
 making sure no unnecessary queries are made to the DB.
 
 ###All of your favorite methods are present, including:
-* `#Create`
-* `#Find`
-* `#All`
-* `#Update`
-* `#Destroy`
+* `#create`
+* `#find`
+* `#all`
+* `#update`
+* `#destroy`
 
 ###Also builds Rails table associations:
 * `::belongs_to`
