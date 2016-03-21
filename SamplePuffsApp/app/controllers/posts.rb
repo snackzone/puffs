@@ -4,7 +4,7 @@ class PostsController < Puffs::ControllerBase
   end
 
   def create
-    @post = Post.new(body: params['post']['body'], author_id: 6).save
+    @post = Post.new(body: params['post']['body'], author_id: 1).save
     redirect_to ('/posts')
   end
 

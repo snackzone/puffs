@@ -98,6 +98,7 @@ class CLI < Thor
 
   desc 'new', 'creates a new Puffs app'
   def new(name)
+    APP_NAME = name
     Dir.mkdir "./#{name}"
     Dir.mkdir "./#{name}/app"
     Dir.mkdir "./#{name}/app/models"

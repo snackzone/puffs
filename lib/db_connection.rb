@@ -1,6 +1,5 @@
 require 'pg'
 
-APP_NAME = "Puffs"
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
 MIGRATIONS = Dir.glob('./db/migrate/*.sql').to_a
 

@@ -28,8 +28,6 @@ class HasManyOptions < AssocOptions
   def initialize(name, self_class_name, options = {})
     @primary_key = options[:primary_key] || :id
     @foreign_key = options[:foreign_key] || "#{self_class_name.to_s.underscore}_id".to_sym
-
-    #I think there is a bug here, investigate.
     @class_name = options[:class_name] || name.to_s.singularize.camelcase
   end
 end
