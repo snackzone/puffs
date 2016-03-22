@@ -102,9 +102,9 @@ class CLI < Thor
     Dir.mkdir "./#{name}/config"
 
     File.open("./#{name}/config/database.yml", "w") do |f|
-      "database: #{name}"
+      f.write("database: #{name}")
     end
-
+    
     Dir.mkdir "./#{name}/app"
     Dir.mkdir "./#{name}/app/models"
     Dir.mkdir "./#{name}/app/views"
