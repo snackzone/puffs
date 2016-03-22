@@ -98,7 +98,10 @@ class CLI < Thor
 
   desc 'new', 'creates a new Puffs app'
   def new(name)
-    APP_NAME = name
+    File.open("./#{name}/config/database.yml", "w") do |f|
+      "database: #{name}"
+    end
+    
     Dir.mkdir "./#{name}"
     Dir.mkdir "./#{name}/app"
     Dir.mkdir "./#{name}/app/models"

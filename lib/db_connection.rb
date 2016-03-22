@@ -1,17 +1,22 @@
 require 'pg'
+require 'yaml'
 
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
 MIGRATIONS = Dir.glob('./db/migrate/*.sql').to_a
 
 class DBConnection
+  def initialize
+    @@app_name = YAML.load_file('./config/database.yml')['database']
+  end
+
   def self.open
-    @db = PG::Connection.new( :dbname => APP_NAME, :port => 5432 )
+    @db = PG::Connection.new( :dbname => @@app_name, :port => 5432 )
   end
 
   def self.reset
     commands = [
-      "dropdb #{APP_NAME}",
-      "createdb #{APP_NAME}",
+      "dropdb #{@@app_name}",
+      "createdb #{@@app_name}"
     ]
 
     commands.each { |command| `#{command}` }
@@ -21,7 +26,7 @@ class DBConnection
     ensure_version_table
     to_migrate = MIGRATIONS.reject { |file| has_migrated?(file) }
     to_migrate.each { |file| add_to_version(file) }
-    to_migrate.map {|file| "psql -d #{APP_NAME} -a -f #{file}"}
+    to_migrate.map {|file| "psql -d #{@@app_name} -a -f #{file}"}
               .each {|command| `#{command}`}
   end
 
