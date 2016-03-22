@@ -134,3 +134,10 @@ Puffs Console
 
 Access your DB with `Puffs::SQLObject` methods by simply entering
 `require 'puffs'` in Pry (or IRB).
+
+Todos
+-----
+
+[ ] Flash / Flash.now
+[ ] CSRF Form Authenticity Token
+[ ] Production Database (push to Heroku)
