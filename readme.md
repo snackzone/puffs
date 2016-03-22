@@ -138,6 +138,6 @@ Access your DB with `Puffs::SQLObject` methods by simply entering
 Todos
 -----
 
-[ ] Flash / Flash.now
-[ ] CSRF Form Authenticity Token
-[ ] Production Database (push to Heroku)
+* [ ] Flash / Flash.now
+* [ ] CSRF Form Authenticity Token
+* [ ] Production Database (push to Heroku)
