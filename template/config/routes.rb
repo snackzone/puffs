@@ -1,5 +1,5 @@
 ROUTER = Puffs::Router.new
-Puffs::ROUTER.draw do
+ROUTER.draw do
   #Some sample routes:
 
   # get Regexp.new("^/cats/new$"), CatsController, :new
