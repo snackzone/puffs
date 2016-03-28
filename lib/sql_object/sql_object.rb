@@ -1,15 +1,16 @@
+require 'byebug'
+require 'active_support/inflector'
 require_relative '../../lib/db_connection'
 require_relative 'associatable'
-require_relative 'searchable'
 require_relative '../relation'
-require 'active_support/inflector'
+require_relative 'searchable'
 
 module Puffs
   # Base Model class for Puffs Orm.
   class SQLObject
     extend Associatable
-    include Searchable
-
+    extend Searchable
+    
     def self.columns
       Puffs::DBConnection.columns(table_name)
     end

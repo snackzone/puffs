@@ -1,6 +1,3 @@
-require_relative './../lib/db_connection'
-require_relative 'sql_object/sql_object'
-
 module Puffs
   # Queries made through Puffs::SQLObject return instance of SQLRelation
   class SQLRelation
