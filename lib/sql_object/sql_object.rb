@@ -1,33 +1,17 @@
 require_relative '../../lib/db_connection'
 require_relative 'associatable'
+require_relative 'searchable'
 require_relative '../relation'
 require 'active_support/inflector'
-# require_relative '../puffs'
 
 module Puffs
+  # Base Model class for Puffs Orm.
   class SQLObject
     extend Associatable
-
-    RELATION_METHODS = [
-      :limit, :includes, :where, :order
-    ]
-
-    RELATION_METHODS.each do |method|
-      define_singleton_method(method) do |arg|
-        Puffs::SQLRelation.new(klass: self).send(method, arg)
-      end
-    end
-
-    def self.all
-      where({})
-    end
+    include Searchable
 
     def self.columns
       Puffs::DBConnection.columns(table_name)
-    end
-
-    def self.count
-      all.count
     end
 
     def self.define_singleton_method_by_proc(obj, name, block)
@@ -36,13 +20,11 @@ module Puffs
     end
 
     def self.destroy_all!
-      self.all.each do |entry|
-        entry.destroy!
-      end
+      all.each(&:destroy!)
     end
 
     def self.finalize!
-      self.columns.each do |column|
+      columns.each do |column|
         define_method(column) do
           attributes[column]
         end
@@ -53,26 +35,14 @@ module Puffs
       end
     end
 
-    def self.find(id)
-      where(id: id).first
-    end
-
-    def self.first
-      all.limit(1).first
-    end
-
     def self.has_association?(association)
       assoc_options.keys.include?(association)
-    end
-
-    def self.last
-      all.order(id: :desc).limit(1).first
     end
 
     def self.parse_all(results)
       relation = Puffs::SQLRelation.new(klass: self, loaded: true)
       results.each do |result|
-        relation << self.new(result)
+        relation << new(result)
       end
 
       relation
@@ -83,7 +53,7 @@ module Puffs
     end
 
     def self.table_name
-      @table_name ||= self.to_s.downcase.tableize
+      @table_name ||= to_s.downcase.tableize
     end
 
     def initialize(params = {})
@@ -92,7 +62,7 @@ module Puffs
           raise "unknown attribute '#{attr_name}'"
         end
 
-        self.send("#{attr_name}=", value)
+        send("#{attr_name}=", value)
       end
     end
 
@@ -102,7 +72,7 @@ module Puffs
 
     def attribute_values
       self.class.columns.map do |column|
-        self.send(column)
+        send(column)
       end
     end
 
@@ -121,9 +91,9 @@ module Puffs
 
     def insert
       columns = self.class.columns.reject { |col| col == :id }
-      column_values = columns.map {|attr_name| send(attr_name)}
-      column_names = columns.join(", ")
-      bind_params = (1..columns.length).map {|n| "$#{n}"}.join(", ")
+      column_values = columns.map { |attr_name| send(attr_name) }
+      column_names = columns.join(', ')
+      bind_params = (1..columns.length).map { |n| "$#{n}" }.join(', ')
       result = Puffs::DBConnection.execute(<<-SQL, column_values)
         INSERT INTO
           #{self.class.table_name} (#{column_names})
@@ -141,8 +111,8 @@ module Puffs
 
     def update
       set_line = self.class.columns.map do |column|
-        "#{column} = \'#{self.send(column)}\'"
-      end.join(", ")
+        "#{column} = \'#{send(column)}\'"
+      end.join(', ')
 
       Puffs::DBConnection.execute(<<-SQL)
         UPDATE

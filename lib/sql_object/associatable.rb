@@ -1,6 +1,7 @@
 require 'active_support/inflector'
 
 module Puffs
+  # Used in HasManyOptions and BelongsToOptions
   class AssocOptions
     attr_accessor(
       :foreign_key,
@@ -17,29 +18,48 @@ module Puffs
     end
   end
 
+  # Used to build belongs_to associations.
   class BelongsToOptions < AssocOptions
     def initialize(name, options = {})
-      @primary_key = options[:primary_key] || :id
-      @foreign_key = options[:foreign_key] || "#{name}_id".to_sym
-      @class_name = options[:class_name] || name.to_s.capitalize
+      defaults = {
+        primary_key: :id,
+        foreign_key: "#{name}_id".to_sym,
+        class_name: name.to_s.capitalize
+      }
+
+      merged_options = options.merge(defaults)
+
+      @primary_key = merged_options[:primary_key]
+      @foreign_key = merged_options[:foreign_key]
+      @class_name = merged_options[:class_name]
     end
   end
 
+  # Used to build has_many associations.
   class HasManyOptions < AssocOptions
     def initialize(name, self_class_name, options = {})
-      @primary_key = options[:primary_key] || :id
-      @foreign_key = options[:foreign_key] || "#{self_class_name.to_s.underscore}_id".to_sym
-      @class_name = options[:class_name] || name.to_s.singularize.camelcase
+      defaults = {
+        primary_key: :id,
+        foreign_key: "#{self_class_name.to_s.underscore}_id".to_sym,
+        class_name: name.to_s.singularize.camelcase
+      }
+
+      merged_options = options.merge(defaults)
+
+      @primary_key = merged_options[:primary_key]
+      @foreign_key = merged_options[:foreign_key]
+      @class_name = merged_options[:class_name]
     end
   end
 
+  # Used to map association methods.
   module Associatable
     def belongs_to(name, options = {})
       options = BelongsToOptions.new(name, options)
       assoc_options[name] = options
 
       define_method(name) do
-        foreign_key_value = self.send(options.foreign_key)
+        foreign_key_value = send(options.foreign_key)
         return nil if foreign_key_value.nil?
 
         options.model_class
@@ -49,11 +69,11 @@ module Puffs
     end
 
     def has_many(name, options = {})
-      options = HasManyOptions.new(name, self.to_s, options)
+      options = HasManyOptions.new(name, to_s, options)
       assoc_options[name] = options
 
       define_method(name) do
-        target_key_value = self.send(options.primary_key)
+        target_key_value = send(options.primary_key)
         return nil if target_key_value.nil?
         options.model_class
                .where(options.foreign_key => target_key_value)
@@ -72,10 +92,12 @@ module Puffs
         source_options =
           through_options.model_class.assoc_options[source_name]
         through_pk = through_options.primary_key
-        key_val = self.send(through_options.foreign_key)
+        key_val = send(through_options.foreign_key)
 
-        source_options.model_class.includes(through_options.model_class)
-                                  .where(through_pk => key_val).first
+        source_options.model_class
+                      .includes(through_options.model_class)
+                      .where(through_pk => key_val)
+                      .first
       end
     end
 
@@ -84,9 +106,9 @@ module Puffs
       define_method(name) do
         through_fk = through_options.foreign_key
         through_class = through_options.model_class
-        key_val = self.send(through_options.primary_key)
+        key_val = send(through_options.primary_key)
 
-        #2 queries, we could reduce to 1 by writing Puffs::SQLRelation.join.
+        # 2 queries, we could reduce to 1 by writing Puffs::SQLRelation.join.
         through_class.where(through_fk => key_val)
                      .includes(source_name)
                      .load
