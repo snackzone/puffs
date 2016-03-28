@@ -1,4 +1,3 @@
-require 'byebug'
 require 'active_support/inflector'
 require_relative '../../lib/db_connection'
 require_relative 'associatable'
@@ -10,7 +9,7 @@ module Puffs
   class SQLObject
     extend Associatable
     extend Searchable
-    
+
     def self.columns
       Puffs::DBConnection.columns(table_name)
     end
