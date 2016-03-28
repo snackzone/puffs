@@ -50,7 +50,7 @@ module Puffs
           collection: []
         }
 
-      merged_options = options.merge(defaults)
+      merged_options = defaults.merge(options)
 
       @klass      = options[:klass]
       @collection = merged_options[:collection]

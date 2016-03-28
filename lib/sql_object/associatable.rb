@@ -26,7 +26,7 @@ class BelongsToOptions < AssocOptions
       class_name: name.to_s.capitalize
     }
 
-    merged_options = options.merge(defaults)
+    merged_options = defaults.merge(options)
 
     @primary_key = merged_options[:primary_key]
     @foreign_key = merged_options[:foreign_key]
@@ -43,7 +43,7 @@ class HasManyOptions < AssocOptions
       class_name: name.to_s.singularize.camelcase
     }
 
-    merged_options = options.merge(defaults)
+    merged_options = defaults.merge(options)
 
     @primary_key = merged_options[:primary_key]
     @foreign_key = merged_options[:foreign_key]
