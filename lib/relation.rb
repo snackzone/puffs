@@ -46,14 +46,13 @@ module Puffs
     def initialize(options)
       defaults =
         {
-          klass: nil,
           loaded: false,
           collection: []
         }
 
       merged_options = options.merge(defaults)
 
-      @klass      = merged_options[:klass]
+      @klass      = options[:klass]
       @collection = merged_options[:collection]
       @loaded     = merged_options[:loaded]
     end
