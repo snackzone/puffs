@@ -61,6 +61,21 @@ module Puffs
       @db
     end
 
+    def self.kill_background
+      # Thanks, Github user mfilej!
+      execute(<<-SQL)
+      SELECT
+        pg_terminate_backend(pid)
+      FROM
+        pg_stat_activity
+      WHERE
+        -- don't kill my own connection!
+        pid <> pg_backend_pid()
+        -- don't kill the connections to other databases
+        AND datname = '#{app_name}';
+      SQL
+    end
+
     def self.migrate
       ensure_version_table
       to_migrate = MIGRATIONS.reject { |file| migrated?(file) }
@@ -108,12 +123,14 @@ module Puffs
     end
 
     def self.reset
+      kill_background
+
       commands = [
         "dropdb #{app_name}",
         "createdb #{app_name}"
       ]
 
-      commands.each { |command| `#{command}` }
+      commands.each do { |command| `#{command}` }
     end
   end
 end
