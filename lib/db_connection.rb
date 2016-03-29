@@ -130,7 +130,7 @@ module Puffs
         "createdb #{app_name}"
       ]
 
-      commands.each do { |command| `#{command}` }
+      commands.each { |command| `#{command}` }
     end
   end
 end
